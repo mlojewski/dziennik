@@ -10,7 +10,17 @@
                         <div class="col-6">
                             <h4>Lista zawodników</h4>
                         </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
 
+                            <h5>Szkoła: {{ $school->name ?? 'Nie przypisano' }}</h5>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <a href="{{ route('athletes.create') }}" class="btn btn-primary">Dodaj ucznia</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,6 +74,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Container-fluid Ends-->
+        </div>
+{{-- @endsection --}}
 {{--                        <div class="col-xl-9 col-md-12 box-col-12">--}}
 {{--                            <div class="email-right-aside bookmark-tabcontent contacts-tabs">--}}
 {{--                                <div class="card email-body radius-left dark-contact">--}}

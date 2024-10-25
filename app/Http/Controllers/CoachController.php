@@ -11,9 +11,16 @@ class CoachController extends Controller
 {
     public function index()
     {
-        $coaches = Coach::with('school')->get();
+        $coaches = Coach::with('schools')->where('is_active', 1)->get();
 
         return view('coaches.index', ['coaches' => $coaches]);
+    }
+
+    public function inactives()
+    {
+        $coaches = Coach::with('schools')->where('is_active', 0)->get();
+
+        return view('coaches.inactives', ['coaches' => $coaches]);
     }
 
     public function create()

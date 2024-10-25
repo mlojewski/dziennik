@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AthleteController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\EditionController;
+use App\Http\Controllers\HourController;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
@@ -28,6 +30,7 @@ Route::get('coaches', [CoachController::class, 'index'])->name('coaches.index');
 Route::get('coaches/create', [CoachController::class, 'create'])->name('coaches.create');
 Route::post('coaches', [CoachController::class, 'store'])->name('coaches.store');
 Route::get('coaches/edit/{id}', [CoachController::class, 'edit'])->name('coaches.edit');
+Route::get('coaches/{id}', [CoachController::class, 'activate'])->name('coaches.activate');
 Route::put('coaches/{id}', [CoachController::class, 'update'])->name('coaches.update');
 Route::delete('coaches/{id}', [CoachController::class, 'delete'])->name('coaches.delete');
 
@@ -50,13 +53,30 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('schools/coach/{id}', [SchoolController::class, 'showCoachSchools'])->name('schools.coach');
     Route::middleware('is_admin')->group(function () {
+        Route::get('inactives', [CoachController::class, 'inactives'])->name('coaches.inactives');
         Route::get('stages', [StageController::class, 'index'])->name('stages.index');
         Route::get('stages/create', [StageController::class, 'create'])->name('stages.create');
         Route::post('stages', [StageController::class, 'store'])->name('stages.store');
         Route::get('stages/edit/{id}', [StageController::class, 'edit'])->name('stages.edit');
         Route::put('stages/{id}', [StageController::class, 'update'])->name('stages.update');
         Route::delete('stages/{id}', [StageController::class, 'delete'])->name('stages.delete');
+        Route::get('editions', [EditionController::class, 'index'])->name('editions.index');
+        Route::get('editions/create', [EditionController::class, 'create'])->name('editions.create');
+        Route::post('editions', [EditionController::class, 'store'])->name('editions.store');
+        Route::get('editions/edit/{id}', [EditionController::class, 'edit'])->name('editions.edit');
+        Route::put('editions/{id}', [EditionController::class, 'update'])->name('editions.update');
+        Route::delete('editions/{id}', [EditionController::class, 'delete'])->name('editions.delete');
+        Route::get('hours', [HourController::class, 'index'])->name('hours.index');
+        Route::get('hours/create', [HourController::class, 'create'])->name('hours.create');
+        Route::post('hours', [HourController::class, 'store'])->name('hours.store');
+        Route::get('hours/edit/{id}', [HourController::class, 'edit'])->name('hours.edit');
+        Route::put('hours/{id}', [HourController::class, 'update'])->name('hours.update');
+        Route::delete('hours/{id}', [HourController::class, 'delete'])->name('hours.delete');
+        
+
+
     });
 });
 

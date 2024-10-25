@@ -980,11 +980,15 @@
 {{--                                <svg class="fill-icon">--}}
 {{--                                    <use href="../assets/svg/icon-sprite.svg#fill-support-tickets"></use>--}}
 {{--                                </svg><span>Support Ticket</span></a></li>--}}
+                        @if(auth()->user()->is_admin == 0)
+
+
                         <li class="sidebar-main-title">
                             <div>
                                 <h6>Panel Trenera</h6>
                             </div>
                         </li>
+
                         <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title link-nav" href="#">
                                 <svg class="stroke-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-home')}}"></use>
@@ -1006,6 +1010,19 @@
                             </ul>
                         </li>
                         <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
+                            <svg class="stroke-icon">
+                                <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-user')}}"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="{{asset('../assets/svg/icon-sprite.svg#fill-school')}}"></use>
+                            </svg><span>Zarządzanie szkołami</span></a>
+                            <ul class="sidebar-submenu">
+                                
+                                <li><a href="{{route('schools.coach', Auth::user()->coach_id) }}">Twoje szkoły</a></li>
+                                <li><a href="{{route('schools.create')}}">Dodaj szkołę</a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
                                 <svg class="stroke-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-charts')}}"></use>
                                 </svg>
@@ -1013,8 +1030,8 @@
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#fill-charts')}}"></use>
                                 </svg><span>Zarządzanie treningami</span></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="user-profile.html">Lista treningów</a></li>
-                                <li><a href="edit-profile.html">Dodaj trening</a></li>
+                                <li><a href="{{route('practices.index')}}">Lista treningów</a></li>
+                                <li><a href="{{route('practices.create')}}">Dodaj trening</a></li>
                             </ul>
                         </li>
                         <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
@@ -1024,7 +1041,8 @@
                                 <svg class="fill-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#fill-chat')}}"></use>
                                 </svg><span>Wiadomości</span></a></li>
-
+                        @endif
+                        @if(auth()->user()->is_admin == 1)
                     <li class="sidebar-main-title">
                         <div>
                             <h6>Panel Admina</h6>
@@ -1046,8 +1064,8 @@
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#fill-user')}}"></use>
                             </svg><span>Zarządzanie Trenerami</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="user-profile.html">Lista aktywnych trenerów</a></li>
-                            <li><a href="edit-profile.html">Aktywuj trenera</a></li>
+                            <li><a href="{{route('coaches.index')}}">Lista aktywnych trenerów</a></li>
+                            <li><a href="{{route('coaches.inactives')}}">Aktywuj trenera</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
@@ -1070,7 +1088,7 @@
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#fill-chat')}}"></use>
                             </svg><span>Wiadomości</span></a>
                     </li>
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
+                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{route('hours.index')}}">
                             <svg class="stroke-icon">
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-faq')}}"></use>
                             </svg>
@@ -1078,6 +1096,15 @@
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#fill-faq')}}"></use>
                             </svg><span>Stawka godzinowa</span></a>
                     </li>
+                        <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{route('editions.index')}}">
+                                <svg class="stroke-icon">
+                                    <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-faq')}}"></use>
+                                </svg>
+                                <svg class="fill-icon">
+                                    <use href="{{asset('../assets/svg/icon-sprite.svg#fill-faq')}}"></use>
+                                </svg><span>Edycje</span></a>
+                        </li>
+                        @endif
 
                     </ul>
                     <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

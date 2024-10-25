@@ -21,7 +21,7 @@ class CoachFactory extends Factory
             'last_name' => fake()->name(),
             'phone' => fake()->text(),
             'is_active' => true,
-            'school_id' => 1
+        
         ];
     }
 }

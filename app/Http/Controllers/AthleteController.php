@@ -15,7 +15,7 @@ class AthleteController extends Controller
         $school = $this->getSchoolForLoggedTeacher();
         $athletes = Athlete::with('school')->where('school_id', $school->id)->get();
 
-        return view('athletes.index', ['athletes' => $athletes]);
+        return view('athletes.index', ['athletes' => $athletes, 'school' => $school]);
     }
 
     public function create()

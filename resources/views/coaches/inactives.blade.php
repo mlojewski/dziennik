@@ -31,7 +31,7 @@
                                                     <th scope="col">Imię</th>
                                                     <th scope="col">Nazwisko</th>
                                                     <th scope="col">Numer telefonu</th>
-                                                    <th scope="col">Szkoły</th>
+                                                    <th scope="col">Szkoła uzupełniona?</th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
                                                     <th scope="col"></th>
@@ -43,32 +43,27 @@
                                                         <th scope="row">{{$coach->id}}</th>
                                                         <td>{{$coach->name}}</td>
                                                         <td>{{$coach->last_name}}</td>
-                                                        <td style="width: 150px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;">{{$coach->phone}}</td>
+                                                        <td>{{$coach->phone}}</td>
                                                         <td>
-                                                            @if($coach->schools->isEmpty())
-                                                                brak
-                                                            @else
-                                                                @foreach($coach->schools as $school)
-                                                                    {{ $school->name }}{{ !$loop->last ? ', ' : '' }}
-                                                                @endforeach
+                                                            @if (!empty($coach->schools))
+                                                            tak
+                                                            @else Nie
                                                             @endif
+                                                        
                                                         </td>
-                                                        <td>
-                                                            <form method="post" action="{{route('coaches.delete', ['id' => $coach->id])}}" style="display: inline-block;">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit" class="btn btn-link p-0 m-0" style="color: #dc3545; text-decoration: none;">
-                                                                    <i class="bg-light-danger font-danger" data-feather="alert-triangle" style="vertical-align: middle; margin-right: 5px;"></i>
-                                                                    <span style="vertical-align: middle;">Usuń</span>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{route('coaches.edit', ['id' => $coach->id])}}" class="btn btn-link p-0 m-0" style="color: #28a745; text-decoration: none;">
-                                                                <i class="bg-light-success font-success" data-feather="edit" style="vertical-align: middle; margin-right: 5px;"></i>
-                                                                <span style="vertical-align: middle;">Edytuj</span>
-                                                            </a>
-                                                        </td>
+                                                        <td><i class="bg-light-danger font-danger" data-feather="alert-triangle"></i><span class="font-danger"><form method="post" action="{{route('coaches.delete', ['id' => $coach->id])}}">
+                                @csrf
+
+                                                                    @method('delete')
+                                    <button type="submit" class="bg-light-success font-danger"> Usuń</button>
+                                                                </form></span></td>
+
+                                                        <td><i class="bg-light-success font-success" data-feather="alert-triangle"></i><span class="font-success"><form method="post" action="{{route('coaches.activate', ['id' => $coach->id])}}">
+                                @csrf
+
+                                                                    @method('get')
+                                    <button type="submit" class="bg-light-success font-success"> Aktywuj</button>
+                                                                </form></span></td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

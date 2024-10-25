@@ -16,7 +16,7 @@ class School extends Model
 
     public function coaches()
     {
-        return $this->hasMany('App\Models\Coach');
+        return $this->belongsToMany('App\Models\Coach', 'coach_school');
     }
 
     public function practices()

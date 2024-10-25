@@ -31,11 +31,16 @@ class SchoolController extends Controller
         $school->address = $request->address;
 
         $school->save();
-        $coach = Coach::where('id', [Auth::user()->coach_id])->first();
-        $coach->school_id = $school->id;
-        $coach->save();
 
-        return redirect()->route('schools.index');
+        $coach = Coach::where('id', [Auth::user()->coach_id])->first();
+        $coach->schools()->attach($school->id);
+
+        // Sprawdź, czy zalogowany użytkownik jest administratorem
+        if (Auth::user()->is_admin) {
+            return redirect()->route('schools.index');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function delete($id)
@@ -63,6 +68,14 @@ class SchoolController extends Controller
 
         $school->save();
         return redirect()->route('schools.index');
+    }
+
+    public function showCoachSchools($id)
+    {
+        $coach = Coach::findOrFail($id);
+        $schools = $coach->schools;
+
+        return view('schools.index', ['schools' => $schools, 'coach' => $coach]);
     }
 
 }

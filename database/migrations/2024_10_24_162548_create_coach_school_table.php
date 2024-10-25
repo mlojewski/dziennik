@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('coaches', function (Blueprint $table) {
-            $table->unsignedBigInteger('school_id')->nullable();
-            $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete()->cascadeOnUpdate();
+        Schema::create('coach_school', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('coach_id')->constrained()->onDelete('cascade');
+            $table->foreignId('school_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('coaches', function (Blueprint $table) {
-            $table->dropForeign(['school_id']);
-        });
+        Schema::dropIfExists('coach_school');
     }
 };

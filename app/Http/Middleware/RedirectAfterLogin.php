@@ -20,8 +20,10 @@ class RedirectAfterLogin
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->route(auth()->user()->getRedirectRoute());
+//                return redirect()->route(auth()->user()->getRedirectRoute());
+                return redirect(route('dashboard', absolute: false));
             }
+
         }
         return $next($request);
     }

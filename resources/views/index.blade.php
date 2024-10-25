@@ -11,13 +11,18 @@
     @if(Auth::user()->coach_id == null)
         Profil trenera nie został uzupełniony - przejdź tutaj = <a href="{{route('coaches.create')}}"> o tutaj</a>
     @endif
+  
     @if(!\App\Models\Coach::where('id', Auth::user()->coach_id)->get()->isEmpty())
-        @if(\App\Models\Coach::where('id', Auth::user()->coach_id)->get()[0]->school_id == null)
+        @if(\App\Models\Coach::where('id', Auth::user()->coach_id)->get()[0]->schools->isEmpty())
             Nie uzupełniono danych szkoły - przejdź tutaj = <a href="{{route('schools.create')}}"> o tutaj</a>
+        @else
+        gra
         @endif
     @endif
-{{--                            #do sprawdzenia--}}
-@endif
+    @endif
+
+{{-- {{--                            --}}
+{{-- @endif --}}
                         </div>
                         <div class="col-6">
                             <ol class="breadcrumb">

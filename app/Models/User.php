@@ -50,14 +50,14 @@ class User extends Authenticatable
         return $this->hasOne(Coach::class);
     }
 
-    public function getRedirectRoute()
-    {
-        if (!auth()->user()->is_admin) {
+   public function getRedirectRoute()
+   {
+       if (!auth()->user()->is_admin) {
 
-           return 'athletes.index';
-        }
+          return 'athletes.index';
+       }
 
-        return 'coaches.index';
+       return 'coaches.index';
 
-    }
+   }
 }

@@ -9,9 +9,9 @@ class Coach extends Model
 {
     use HasFactory;
 
-    public function school()
+    public function schools()
     {
-        return $this->belongsTo('App\Models\School');
+        return $this->belongsToMany('App\Models\School', 'coach_school');
     }
 
     public function user()
