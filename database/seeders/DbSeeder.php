@@ -21,6 +21,9 @@ class DbSeeder extends Seeder
         DB::table('editions')->insert([
             'name' => '2024'
         ]);
+        $this->call([
+            VoivodeshipSeeder::class,
+        ]);
         Stage::factory()->count(2);
         School::factory()->count(5);
         Coach::factory()->count(5);

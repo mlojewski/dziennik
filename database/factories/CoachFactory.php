@@ -21,7 +21,9 @@ class CoachFactory extends Factory
             'last_name' => fake()->name(),
             'phone' => fake()->text(),
             'is_active' => true,
-        
+            'licence' => fake()->text(),
+            'pesel' => fake()->text(),
+            'voivodeship_id' => fake()->numberBetween(1, 16),
         ];
     }
 }

@@ -21,7 +21,7 @@ class Practice extends Model
 
     public function athletes()
     {
-        return $this->belongsToMany('App\Models\Athlete');
+        return $this->belongsToMany('App\Models\Athlete', 'athletes_practices');
     }
 
     public function coach()

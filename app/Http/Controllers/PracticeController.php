@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Coach;
 use App\Models\User;
+use App\Models\School;
 
 class PracticeController extends Controller
 {
@@ -59,11 +60,17 @@ class PracticeController extends Controller
         $practice->stage_id = $request->stage_id;
         $practice->school_id = $request->school_id;
         $user = Auth::user();
-    if ($user && $user->coach_id) {
-        $practice->coach_id = $user->coach_id;
-    }
+        if ($user && $user->coach_id) {
+            $practice->coach_id = $user->coach_id;
+        }
 
         $practice->save();
+
+        // Dodajemy obsługę zapisu zawodników
+        if ($request->has('athletes')) {
+            $practice->athletes()->attach($request->athletes);
+        }
+
         return redirect()->route('practices.index');
     }
 
@@ -77,20 +84,32 @@ class PracticeController extends Controller
 
     public function edit($id)
     {
-        $practice = Practice::find($id);
-
-        return view('practices.edit', ['practice' => $practice]);
+        $practice = Practice::with('athletes')->findOrFail($id);
+        $schools = School::all();
+        $stages = Stage::with('edition')->get();
+        
+        return view('practices.edit', compact('practice', 'schools', 'stages'));
     }
 
     public function update(Request $request, $id)
     {
-        $practice = Practice::find($id);
+        $practice = Practice::findOrFail($id);
 
         $practice->warm_up = $request->warm_up;
         $practice->drills = $request->drills;
+        
+        $practice->school_id = $request->school_id;
 
         $practice->save();
-        return redirect()->route('practices.index');
+
+        // Aktualizacja powiązanych zawodników
+        if ($request->has('athletes')) {
+            $practice->athletes()->sync($request->athletes);
+        } else {
+            $practice->athletes()->detach();
+        }
+
+        return redirect()->route('practices.index')->with('success', 'Trening został zaktualizowany.');
     }
 
     public function getLoggedInCoachPractices()
@@ -113,4 +132,12 @@ class PracticeController extends Controller
         
         return $practices;
     }
+
+    public function getAthletes($schoolId)
+    {
+        $school = School::findOrFail($schoolId);
+        $athletes = $school->athletes;
+        return response()->json($athletes);
+    }
+
 }

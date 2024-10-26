@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('schools/coach/{id}', [SchoolController::class, 'showCoachSchools'])->name('schools.coach');
+    Route::get('schools/{schoolId}/athletes', [PracticeController::class, 'getAthletes'])->name('practices.getAthletes');
     Route::middleware('is_admin')->group(function () {
         Route::get('inactives', [CoachController::class, 'inactives'])->name('coaches.inactives');
         Route::get('stages', [StageController::class, 'index'])->name('stages.index');

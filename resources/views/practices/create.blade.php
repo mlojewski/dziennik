@@ -52,6 +52,13 @@
                         @endforeach
                     </select>
                 </div>
+                <!-- Dodana sekcja z listą zawodników -->
+                <div class="col-md-12 mt-3" id="athletes-section" style="display: none;">
+                    <label class="form-label">Wybierz zawodników</label>
+                    <div id="athletes-list">
+                        <!-- Tu będą dynamicznie dodawane checkboxy z zawodnikami -->
+                    </div>
+                </div>
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Zapisz</button>
                 </div>
@@ -95,6 +102,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicjalnie wyłącz pole daty
     dateInput.disabled = true;
+
+    const schoolSelect = document.getElementById('school_id');
+    const athletesSection = document.getElementById('athletes-section');
+    const athletesList = document.getElementById('athletes-list');
+
+    schoolSelect.addEventListener('change', function() {
+        const schoolId = this.value;
+        if (schoolId) {
+            fetch(`{{ url('/schools') }}/${schoolId}/athletes`)
+                .then(response => response.json())
+                .then(athletes => {
+                    athletesList.innerHTML = '';
+                    athletes.forEach(athlete => {
+                        const checkbox = document.createElement('div');
+                        checkbox.className = 'form-check';
+                        checkbox.innerHTML = `
+                            <input class="form-check-input" type="checkbox" name="athletes[]" value="${athlete.id}" id="athlete${athlete.id}">
+                            <label class="form-check-label" for="athlete${athlete.id}">
+                                ${athlete.name}
+                            </label>
+                        `;
+                        athletesList.appendChild(checkbox);
+                    });
+                    athletesSection.style.display = 'block';
+                })
+                .catch(error => console.error('Błąd podczas pobierania zawodników:', error));
+        } else {
+            athletesSection.style.display = 'none';
+        }
+    });
 });
 </script>
 @endpush
