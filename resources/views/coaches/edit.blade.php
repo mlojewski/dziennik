@@ -23,9 +23,13 @@
                         <label class="form-label" for="last_name">Nazwisko</label>
                         <input value="{{$coach->last_name}}" class="form-control" name="last_name" id="last_name" required="required" type="text" placeholder="Wpisz nazwisko trenera">
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label class="form-label" for="phone">Numer kontaktowy trenera</label>
                         <input value="{{$coach->phone}}" class="form-control" name="phone" id="phone" required="required" type="text" placeholder="Wpisz numer kontaktowy trenera">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="licence">Numer licencji trenera</label>
+                        <input value="{{$coach->licence}}" class="form-control" name="licence" id="licence" required="required" type="text" placeholder="Wpisz numer licencji trenera">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="nip">NIP</label>
@@ -36,6 +40,23 @@
                         <select class="form-control" name="is_b2b" id="is_b2b" required="required">
                             <option value="1" {{ $coach->is_b2b ? 'selected' : '' }}>Tak</option>
                             <option value="0" {{ !$coach->is_b2b ? 'selected' : '' }}>Nie</option>
+                        </select>
+                    </div>
+                    <!-- Nowe pole dla PESEL -->
+                    <div class="col-md-6">
+                        <label class="form-label" for="pesel">PESEL</label>
+                        <input class="form-control" name="pesel" id="pesel" type="text" pattern="[0-9]{11}" maxlength="11" value="{{ $coach->pesel }}" placeholder="Wpisz 11-cyfrowy PESEL">
+                    </div>
+                    <!-- Nowe pole dla województwa -->
+                    <div class="col-md-6">
+                        <label class="form-label" for="voivodeship_id">Województwo</label>
+                        <select class="form-control" name="voivodeship_id" id="voivodeship_id">
+                            <option value="">Wybierz województwo</option>
+                            @foreach($voivodeships as $voivodeship)
+                                <option value="{{ $voivodeship->id }}" {{ $coach->voivodeship_id == $voivodeship->id ? 'selected' : '' }}>
+                                    {{ $voivodeship->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-12">

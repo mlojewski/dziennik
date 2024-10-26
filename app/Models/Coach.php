@@ -23,4 +23,9 @@ class Coach extends Model
     {
         return $this->hasMany(Practice::class);
     }
+    
+    public function voivodeship()
+    {
+        return $this->belongsTo(Voivodeship::class);
+    }
 }

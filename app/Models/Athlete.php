@@ -15,6 +15,6 @@ class Athlete extends Model
 
     public function practices()
     {
-        return $this->belongsToMany('\App\Models\Practice');
+        return $this->belongsToMany('\App\Models\Practice', 'athletes_practices');
     }
 }

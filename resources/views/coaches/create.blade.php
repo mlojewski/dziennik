@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
         <div class="card-wrapper border rounded-3">
-            <form id="athlete_creation" action="{{route('coaches.store')}}" method="post" class="row g-3">
+            <form id="coach_creation" action="{{route('coaches.store')}}" method="post" class="row g-3">
                 {{csrf_field()}}
                 <div class="col-md-6">
                     <label class="form-label" for="last_name">Nazwisko</label>
@@ -33,6 +33,25 @@
                         <option value="0">Nie</option>
                     </select>
                 </div>
+                <!-- Nowe pole dla PESEL -->
+                <div class="col-md-6">
+                    <label class="form-label" for="pesel">PESEL</label>
+                    <input class="form-control" name="pesel" id="pesel" type="text" pattern="[0-9]{11}" maxlength="11" placeholder="Wpisz 11-cyfrowy PESEL">
+                </div>
+                <!-- Nowe pole dla województwa -->
+                <div class="col-md-6">
+                    <label class="form-label" for="voivodeship_id">Województwo</label>
+                    <select class="form-control" name="voivodeship_id" id="voivodeship_id">
+                        <option value="">Wybierz województwo</option>
+                        @foreach($voivodeships as $voivodeship)
+                            <option value="{{ $voivodeship->id }}">{{ $voivodeship->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="licence">Numer licencji</label>
+                    <input class="form-control" name="licence" id="licence" type="text" placeholder="Wpisz numer licencji">
+                </div>
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Zapisz</button>
                 </div>
@@ -42,8 +61,19 @@
     </div>
 @endsection
 
+@push('scripts')
 <script>
-document.getElementById('nip').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
+document.addEventListener('DOMContentLoaded', function() {
+    const nipInput = document.getElementById('nip');
+    const peselInput = document.getElementById('pesel');
+
+    nipInput.addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    peselInput.addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 });
 </script>
+@endpush

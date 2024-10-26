@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coach;
 use App\Models\User;
+use App\Models\Voivodeship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +26,9 @@ class CoachController extends Controller
 
     public function create()
     {
+        $voivodeships = Voivodeship::all();
         $user = User::where('id', Auth::id())->first();
-        return view('coaches.create', ['user' => $user]);
+        return view('coaches.create', ['user' => $user, 'voivodeships' => $voivodeships]);
     }
 
     public function store(Request $request)
@@ -39,6 +41,9 @@ class CoachController extends Controller
         $coach->phone = $request->phone;
         $coach->is_active = false;
         $coach->nip = $request->nip;
+        $coach->pesel = $request->pesel;
+        $coach->voivodeship_id = $request->voivodeship_id;
+        $coach->licence = $request->licence;
         $coach->is_b2b = $request->is_b2b;
         $coach->save();
 
@@ -61,8 +66,9 @@ class CoachController extends Controller
     public function edit($id)
     {
         $coach = Coach::find($id);
+        $voivodeships = Voivodeship::all();
 
-        return view('coaches.edit', ['coach' => $coach]);
+        return view('coaches.edit', ['coach' => $coach, 'voivodeships' => $voivodeships]);
     }
 
     public function update(Request $request, $id)
@@ -74,6 +80,9 @@ class CoachController extends Controller
         $coach->phone = $request->phone;
         $coach->nip = $request->nip;
         $coach->is_b2b = $request->is_b2b;
+        $coach->pesel = $request->pesel;
+        $coach->voivodeship_id = $request->voivodeship_id;
+        $coach->licence = $request->licence;
         $coach->save();
 
         return redirect()->route('coaches.index');

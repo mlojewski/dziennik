@@ -27,9 +27,10 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                 <tr>
-                                                    <th scope="col">Id</th>
+                                                    
                                                     <th scope="col">Imię</th>
                                                     <th scope="col">Nazwisko</th>
+                                                    <th scope="col">Licencja</th>
                                                     <th scope="col">Numer telefonu</th>
                                                     <th scope="col">Szkoły</th>
                                                     <th scope="col"></th>
@@ -40,10 +41,10 @@
                                                 <tbody>
                                                 @foreach($coaches as $coach)
                                                     <tr>
-                                                        <th scope="row">{{$coach->id}}</th>
                                                         <td>{{$coach->name}}</td>
                                                         <td>{{$coach->last_name}}</td>
-                                                        <td style="width: 150px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;">{{$coach->phone}}</td>
+                                                        <td >{{$coach->licence}}</td>
+                                                        <td>{{$coach->phone}}</td>
                                                         <td>
                                                             @if($coach->schools->isEmpty())
                                                                 brak
