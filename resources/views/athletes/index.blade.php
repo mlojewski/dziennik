@@ -8,13 +8,13 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-6">
-                            <h4>Lista zawodników</h4>
+                            <h4>Lista uczniów</h4>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-12">
 
-                            <h5>Szkoła: {{ $school->name ?? 'Nie przypisano' }}</h5>
+                            <h5>Szkoła/y: @foreach($schools as $school) {{ $school->name ?? 'Nie przypisano' }}@endforeach</h5>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -41,6 +41,7 @@
                                                         <th scope="col">Imię</th>
                                                         <th scope="col">Nazwisko</th>
                                                         <th scope="col">Data urodzenia</th>
+                                                        <th scope="col">Szkoła</th>
                                                         <th scope="col">Imię i nazwisko opiekuna</th>
                                                         <th scope="col">Numer opiekuna</th>
                                                         <th scope="col"></th>
@@ -54,6 +55,7 @@
                                                             <td>{{$athlete->name}}</td>
                                                             <td>{{$athlete->last_name}}</td>
                                                             <td>{{$athlete->birth_date}}</td>
+                                                            <td>{{$athlete->school->name ?? 'Nie przypisano'}}</td>
                                                             <td>{{$athlete->guardian}}</td>
                                                             <td>{{$athlete->guardian_number}}</td>
                                                             <td><i class="bg-light-danger font-danger" data-feather="alert-triangle"></i><span class="font-danger">

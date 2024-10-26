@@ -22,6 +22,17 @@
                     <label class="form-label" for="phone">Numer telefonu</label>
                     <input class="form-control" name="phone" id="phone" type="text" required="required" placeholder="Wpisz numer telefonu">
                 </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="nip">NIP</label>
+                    <input class="form-control" name="nip" id="nip" type="text" required="required" pattern="[0-9]{10}" maxlength="10" placeholder="Wpisz 10-cyfrowy NIP">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="is_b2b">Czy chcesz rozliczać się fakturą?</label>
+                    <select class="form-control" name="is_b2b" id="is_b2b" required="required">
+                        <option value="1">Tak</option>
+                        <option value="0">Nie</option>
+                    </select>
+                </div>
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Zapisz</button>
                 </div>
@@ -30,3 +41,9 @@
     </div>
     </div>
 @endsection
+
+<script>
+document.getElementById('nip').addEventListener('input', function (e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+</script>

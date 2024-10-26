@@ -8,7 +8,9 @@
                         <div class="col-6">
                             <h4>Edycje</h4>
                         </div>
-
+                        <div class="col-6 text-end">
+                            <a href="{{ route('editions.create') }}" class="btn" style="background-color: #006666; color: white;">Dodaj edycję</a>
+                        </div>
                     </div>
                 </div>
             </div>

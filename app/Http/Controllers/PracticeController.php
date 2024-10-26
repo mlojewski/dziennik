@@ -28,8 +28,25 @@ class PracticeController extends Controller
 
     public function create()
     {
-        $stages = Stage::all();
-        return view('practices.create', ['stages' => $stages]);
+        $stages = Stage::with('edition')->get();
+        
+        // Pobierz zalogowanego użytkownika
+        $user = Auth::user();
+        
+        // Inicjalizuj pustą kolekcję szkół
+        $schools = collect();
+        
+        if ($user && $user->coach_id) {
+            // Pobierz trenera na podstawie coach_id użytkownika
+            $coach = Coach::find($user->coach_id);
+            
+            if ($coach) {
+                // Pobierz szkoły przypisane do trenera
+                $schools = $coach->schools;
+            }
+        }
+
+        return view('practices.create', compact('stages', 'schools'));
     }
 
     public function store(Request $request)
@@ -39,8 +56,13 @@ class PracticeController extends Controller
         $practice->warm_up = $request->warm_up;
         $practice->drills = $request->drills;
         $practice->date = $request->date;
-        $practice->stage_id = $request->stage;
-        $practice->school_id = 1;
+        $practice->stage_id = $request->stage_id;
+        $practice->school_id = $request->school_id;
+        $user = Auth::user();
+    if ($user && $user->coach_id) {
+        $practice->coach_id = $user->coach_id;
+    }
+
         $practice->save();
         return redirect()->route('practices.index');
     }
@@ -77,7 +99,7 @@ class PracticeController extends Controller
         $user = Auth::user();
         
         // Znajdź trenera powiązanego z tym użytkownikiem
-        $coach = Coach::where('user_id', $user->id)->first();
+        $coach = Coach::find(Auth::user()->coach_id);
         
         if (!$coach) {
             return collect(); // Zwracamy pustą kolekcję, jeśli nie znaleziono trenera

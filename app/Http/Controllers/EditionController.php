@@ -20,8 +20,10 @@ class EditionController extends Controller
 
     public function store(Request $request)
     {
+        
         $edition = new Edition();
         $edition->name = $request->name;
+        $edition->excluded_dates = $request->excluded_dates;
 
         $edition->save();
         return redirect()->route('editions.index');
@@ -29,18 +31,31 @@ class EditionController extends Controller
 
     public function edit($id)
     {
-        $edition = Edition::find($id);
-
-        return view('editions.edit', ['edition' => $edition]);
+        $edition = Edition::findOrFail($id);
+        return view('editions.edit', compact('edition'));
     }
 
     public function update(Request $request, $id)
     {
-        $edition = Edition::find($id);
-        $edition->name = $request->name;
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'excluded_dates' => 'nullable|string',
+        ]);
+
+        $edition = Edition::findOrFail($id);
+        $edition->name = $validatedData['name'];
+        
+        // Przetwarzanie wykluczonych dat
+        if ($request->has('excluded_dates')) {
+            $excludedDates = array_map('trim', explode(',', $validatedData['excluded_dates']));
+            $edition->excluded_dates = $excludedDates;
+        } else {
+            $edition->excluded_dates = null;
+        }
 
         $edition->save();
-        return redirect()->route('editions.index');
+
+        return redirect()->route('editions.index')->with('success', 'Edycja została zaktualizowana pomyślnie.');
     }
 
     public function delete($id)

@@ -38,6 +38,13 @@
     <link id="color" rel="stylesheet" href="{{asset('../assets/css/color-1.css" media="screen')}}">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('../assets/css/responsive.css"')}}">
+    @push('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+@endpush
 </head>
 <body>
 <!-- loader starts-->
@@ -997,6 +1004,7 @@
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#fill-home')}}"></use>
                                 </svg><span>Strona główna</span></a>
                         </li>
+                        @if(auth()->user()->coach_id != null)
                         <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
                                 <svg class="stroke-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-user')}}"></use>
@@ -1018,7 +1026,7 @@
                             </svg><span>Zarządzanie szkołami</span></a>
                             <ul class="sidebar-submenu">
                                 
-                                <li><a href="{{route('schools.coach', Auth::user()->coach_id) }}">Twoje szkoły</a></li>
+                                <li><a href="{{route('schools.coach', ['id' => Auth::user()->coach_id]) }}">Twoje szkoły</a></li>
                                 <li><a href="{{route('schools.create')}}">Dodaj szkołę</a></li>
                             </ul>
                         </li>
@@ -1041,6 +1049,7 @@
                                 <svg class="fill-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#fill-chat')}}"></use>
                                 </svg><span>Wiadomości</span></a></li>
+                                @endif
                         @endif
                         @if(auth()->user()->is_admin == 1)
                     <li class="sidebar-main-title">
@@ -1080,6 +1089,18 @@
                             <li><a href="edit-profile.html">Raporty ogólne</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">
+                        <svg class="stroke-icon">
+                            <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-charts')}}"></use>
+                        </svg>
+                        <svg class="fill-icon">
+                            <use href="{{asset('../assets/svg/icon-sprite.svg#fill-faq')}}"></use>
+                        </svg><span>Kalendarz</span></a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="{{route('editions.index')}}">Edycje</a></li>
+                        <li><a href="{{route('stages.index')}}">Etapy</a></li>
+                    </ul>
+                </li>
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
                             <svg class="stroke-icon">
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-chat')}}"></use>
@@ -1096,14 +1117,7 @@
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#fill-faq')}}"></use>
                             </svg><span>Stawka godzinowa</span></a>
                     </li>
-                        <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{route('editions.index')}}">
-                                <svg class="stroke-icon">
-                                    <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-faq')}}"></use>
-                                </svg>
-                                <svg class="fill-icon">
-                                    <use href="{{asset('../assets/svg/icon-sprite.svg#fill-faq')}}"></use>
-                                </svg><span>Edycje</span></a>
-                        </li>
+                        
                         @endif
 
                     </ul>
@@ -1129,7 +1143,8 @@
             </div>
         </footer>
     </div>
-
+    @stack('scripts')
+    @stack('styles')
 <!-- latest jquery-->
 <script src="{{asset('../assets/js/jquery.min.js')}}"></script>
 <!-- Bootstrap js-->
@@ -1166,5 +1181,7 @@
 <!-- Theme js-->
 <script src="{{asset('../assets/js/script.js')}}"></script>
 {{--<script src="{{asset('../assets/js/theme-customizer/customizer.js')}}"></script>--}}
+
 </body>
 </html>
+

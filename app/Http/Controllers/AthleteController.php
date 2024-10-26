@@ -12,20 +12,21 @@ class AthleteController extends Controller
 {
     public function index()
     {
-        $school = $this->getSchoolForLoggedTeacher();
-        $athletes = Athlete::with('school')->where('school_id', $school->id)->get();
+        $schools = $this->getSchoolsForLoggedTeacher();
+        $athletes = Athlete::with('school')->get();
 
-        return view('athletes.index', ['athletes' => $athletes, 'school' => $school]);
+        return view('athletes.index', ['athletes' => $athletes, 'schools' => $schools]);
     }
 
     public function create()
     {
-        return view('athletes.create');
+        $schools = $this->getSchoolsForLoggedTeacher();
+        return view('athletes.create', ['schools' => $schools]  );
     }
 
     public function store(Request $request)
     {
-        $school = $this->getSchoolForLoggedTeacher();
+        
         $athlete = new Athlete();
 
         $athlete->name = $request->name;
@@ -34,7 +35,7 @@ class AthleteController extends Controller
         $athlete->gender = $request->gender;
         $athlete->guardian = $request->guardian;
         $athlete->guardian_number = $request->guardian_number;
-        $athlete->school_id = $school->id;
+        $athlete->school_id = $request->school_id;
 
         $athlete->save();
         return redirect()->route('athletes.index');
@@ -43,12 +44,10 @@ class AthleteController extends Controller
 
     public function delete($id)
     {
-        $school = $this->getSchoolForLoggedTeacher();
+    
         $athlete = Athlete::find($id);
 
-        if ($athlete->school_id != $school->id) {
-            abort(403);
-        }
+    
         $athlete->delete();
 
         return redirect()->route('athletes.index');
@@ -56,37 +55,44 @@ class AthleteController extends Controller
 
     public function edit($id)
     {
-        $school = $this->getSchoolForLoggedTeacher();
+        $schools = $this->getSchoolsForLoggedTeacher();
         $athlete = Athlete::find($id);
-        if ($athlete->school_id != $school->id) {
-            abort(403);
-        }
-        return view('athletes.edit', ['athlete' => $athlete]);
+        
+        return view('athletes.edit', ['athlete' => $athlete, 'schools' => $schools]);
     }
 
     public function update(Request $request, $id)
     {
         $athlete = Athlete::find($id);
-        $school = $this->getSchoolForLoggedTeacher();
-        if ($athlete->school_id != $school->id) {
-            abort(403);
-        }
+        
+        
         $athlete->name = $request->name;
         $athlete->last_name = $request->last_name;
         $athlete->birth_date = $request->birth_date;
         $athlete->gender = $request->gender;
         $athlete->guardian = $request->guardian;
         $athlete->guardian_number = $request->guardian_number;
+        $athlete->school_id = $request->school_id;
 
         $athlete->save();
         return redirect()->route('athletes.index');
     }
 
-    public function getSchoolForLoggedTeacher()
-    {
-        $coach = Coach::where('id', [Auth::user()->coach_id])->first();
+    
 
-        return School::where('id', [$coach->school_id])->first();
+    public function getSchoolsForLoggedTeacher()
+    {
+        $user = Auth::user();
+        if (!$user || !$user->coach_id) {
+            return collect(); // Zwraca pustą kolekcję, jeśli użytkownik nie jest trenerem
+        }
+
+        $coach = Coach::find($user->coach_id);
+        if (!$coach) {
+            return collect(); // Zwraca pustą kolekcję, jeśli trener nie istnieje
+        }
+
+        return $coach->schools; // Zakładamy, że istnieje relacja 'schools' w modelu Coach
     }
 
 }
