@@ -10,7 +10,9 @@
                     <div class="col-6">
                         <h4>Treningi </h4>
                     </div>
-
+                    <div class="col-6 text-end">
+                        <a href="{{ route('practices.create') }}" class="btn" style="background-color: #006666; color: white;">Dodaj trening</a>
+                    </div>
                 </div>
             </div>
         </div>

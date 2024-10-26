@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Stage extends Model
 {
     use HasFactory;
+    
     public function practices()
     {
         return $this->hasMany('App\Models\Practice');
+    }
+
+    public function edition()
+    {
+        return $this->belongsTo(Edition::class);
     }
 }

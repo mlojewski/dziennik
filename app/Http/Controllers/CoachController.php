@@ -38,6 +38,8 @@ class CoachController extends Controller
         $coach->last_name = $request->last_name;
         $coach->phone = $request->phone;
         $coach->is_active = false;
+        $coach->nip = $request->nip;
+        $coach->is_b2b = $request->is_b2b;
         $coach->save();
 
 
@@ -70,7 +72,8 @@ class CoachController extends Controller
         $coach->name = $request->name;
         $coach->last_name = $request->last_name;
         $coach->phone = $request->phone;
-
+        $coach->nip = $request->nip;
+        $coach->is_b2b = $request->is_b2b;
         $coach->save();
 
         return redirect()->route('coaches.index');

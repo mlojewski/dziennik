@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone');
             $table->boolean('is_active');
+            $table->string('nip')->nullable();
+            $table->boolean('is_b2b')->default(false)->nullable();
             $table->timestamps();
         });
     }

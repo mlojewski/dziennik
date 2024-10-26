@@ -16,6 +16,11 @@ class Coach extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->hasOne('App\Models\User');
+    }
+    
+    public function practices()
+    {
+        return $this->hasMany(Practice::class);
     }
 }

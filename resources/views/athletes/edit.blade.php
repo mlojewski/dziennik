@@ -47,13 +47,24 @@
                                                             <option value="Dziewczynka">Dziewczynka</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <label class="form-label" for="guardian">Dane opiekuna</label>
                                                         <input value="{{$athlete->guardian}}" class="form-control" name="guardian" id="guardian" required="required" type="textarea" placeholder="Wpisz dane rodzica/opiekuna">
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <label class="form-label" for="guardian_number">Numer kontaktowy opiekuna</label>
                                                         <input value="{{$athlete->guardian_number}}" class="form-control" name="guardian_number" id="guardian_number" required="required" type="text" placeholder="Wpisz numer kontaktowy rodzica/opiekuna">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label class="form-label" for="school_id">Szkoła</label>
+                                                        <select class="form-control" name="school_id" id="school_id" required="required">
+                                                            <option value="">Wybierz szkołę</option>
+                                                            @foreach($schools as $school)
+                                                                <option value="{{ $school->id }}" {{ $athlete->school_id == $school->id ? 'selected' : '' }}>
+                                                                    {{ $school->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="col-12">
                                                         <button class="btn btn-primary" type="submit">Zapisz</button>

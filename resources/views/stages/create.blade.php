@@ -8,7 +8,6 @@
                     <div class="col-6">
                         <h4>Stwórz etap</h4>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -20,6 +19,15 @@
                 <div class="col-md-12">
                     <label class="form-label" for="name">Nazwa etapu</label>
                     <input class="form-control" name="name" id="name" required="required" type="text" placeholder="Wpisz nazwę etapu">
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="edition_id">Edycja</label>
+                    <select class="form-control" name="edition_id" id="edition_id" required="required">
+                        <option value="">Wybierz edycję</option>
+                        @foreach($editions as $edition)
+                            <option value="{{ $edition->id }}">{{ $edition->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="start_date">Data początkowa</label>

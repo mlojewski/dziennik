@@ -1,6 +1,5 @@
 @extends('layouts.template')
 @section('content')
-
     <div class="page-body">
         <div class="container-fluid">
             <div class="page-title">
@@ -8,11 +7,9 @@
                     <div class="col-6">
                         <h4>Edytuj trenera {{$coach->name}} {{$coach->last_name}}</h4>
                     </div>
-
                 </div>
             </div>
         </div>
-
         <div class="card-body">
             <div class="card-wrapper border rounded-3">
                 <form id="coach_edition" action="{{route('coaches.update',['id' => $coach->id])}}" method="post" class="row g-3">
@@ -30,11 +27,28 @@
                         <label class="form-label" for="phone">Numer kontaktowy trenera</label>
                         <input value="{{$coach->phone}}" class="form-control" name="phone" id="phone" required="required" type="text" placeholder="Wpisz numer kontaktowy trenera">
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="nip">NIP</label>
+                        <input class="form-control" name="nip" id="nip" type="text" required="required" pattern="[0-9]{10}" maxlength="10" value="{{ $coach->nip }}" placeholder="Wpisz 10-cyfrowy NIP">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="is_b2b">Czy chcesz rozliczać się fakturą?</label>
+                        <select class="form-control" name="is_b2b" id="is_b2b" required="required">
+                            <option value="1" {{ $coach->is_b2b ? 'selected' : '' }}>Tak</option>
+                            <option value="0" {{ !$coach->is_b2b ? 'selected' : '' }}>Nie</option>
+                        </select>
+                    </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Zapisz</button>
+                        <button class="btn btn-primary" type="submit">Zapisz zmiany</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 @endsection
+
+<script>
+document.getElementById('nip').addEventListener('input', function (e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+</script>
