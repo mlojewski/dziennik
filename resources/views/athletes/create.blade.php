@@ -30,8 +30,8 @@
                 <div class="col-md-6">
                     <label class="form-label" for="gender">Płeć (kliknij, by dokonać wyboru)</label>
                     <select class="form-control" name="gender" id="gender" required="required">
-                        <option value="Chłopiec">Chłopiec</option>
-                        <option value="Dziewczynka">Dziewczynka</option>
+                        <option value="M">Chłopiec</option>
+                        <option value="K">Dziewczynka</option>
                     </select>
                 </div>
                 <div class="col-md-6">

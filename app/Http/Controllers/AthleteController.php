@@ -13,7 +13,21 @@ class AthleteController extends Controller
     public function index()
     {
         $schools = $this->getSchoolsForLoggedTeacher();
-        $athletes = Athlete::with('school')->get();
+        
+        if (auth()->user()->is_admin) {
+            // Dla admina zachowujemy oryginalną logikę
+            $athletes = Athlete::with('school')->get();
+        } else {
+            // Dla trenera pobieramy tylko zawodników z jego szkół
+            $athletes = Athlete::with('school')
+                ->whereIn('school_id', function($query) {
+                    $query->select('schools.id')
+                        ->from('schools')
+                        ->join('coach_school', 'schools.id', '=', 'coach_school.school_id')
+                        ->where('coach_school.coach_id', auth()->user()->coach_id);
+                })
+                ->get();
+        }
 
         return view('athletes.index', ['athletes' => $athletes, 'schools' => $schools]);
     }

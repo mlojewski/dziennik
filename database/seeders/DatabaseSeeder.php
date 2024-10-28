@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,19 +21,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+       
         Artisan::call('migrate:fresh');
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'a',
+            'email' => 'a@a.pl',
+            'password' => Hash::make('123123123'),
+            'is_admin' => true,
+            
         ]);
         DB::table('editions')->insert([
             'name' => '2024'
         ]);
+        $this->call(
+            VoivodeshipSeeder::class,
+        );
         Stage::factory()->count(2)->create();
-        School::factory()->count(5)->create();
-        Coach::factory()->count(5)->create();
-        Athlete::factory()->count(5)->create();
-        Practice::factory()->count(5)->create();
+        School::factory()->count(10)->create();
+        Coach::factory()->count(15)->create();
+        Athlete::factory()->count(15)->create();
+        Practice::factory()->count(20)->create();
+        $this->call(CoachSchoolSeeder::class);
+        $this->call(AthletePracticeSeeder::class);
     }
 }

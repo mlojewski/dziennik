@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Voivodeship;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coach>
@@ -22,8 +23,8 @@ class CoachFactory extends Factory
             'phone' => fake()->text(),
             'is_active' => true,
             'licence' => fake()->text(),
-            'pesel' => fake()->text(),
-            'voivodeship_id' => fake()->numberBetween(1, 16),
+            'pesel' => fake()->numerify('#########00'),
+            'voivodeship_id' => \App\Models\Voivodeship::inRandomOrder()->first()->id,
         ];
     }
 }
