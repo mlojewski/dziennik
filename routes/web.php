@@ -8,15 +8,18 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StageController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth/login');
 });
-
-Route::get('/', function () {
-    return view('index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+// Route::get('/', function () {
+//     return view('index');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('athletes', [AthleteController::class, 'index'])->name('athletes.index');
 Route::get('athletes/create', [AthleteController::class, 'create'])->name('athletes.create');
@@ -55,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('schools/coach/{id}', [SchoolController::class, 'showCoachSchools'])->name('schools.coach');
     Route::get('schools/{schoolId}/athletes', [PracticeController::class, 'getAthletes'])->name('practices.getAthletes');
+    Route::get('/dashboard/school-stats/{schoolId}', [DashboardController::class, 'getSchoolStats'])->name('getSchoolStats');
+    Route::get('/dashboard/download-practices/{schoolId}', [DashboardController::class, 'exportPractices'])->name('school.practices.export');
     Route::middleware('is_admin')->group(function () {
         Route::get('inactives', [CoachController::class, 'inactives'])->name('coaches.inactives');
         Route::get('stages', [StageController::class, 'index'])->name('stages.index');

@@ -6,7 +6,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-6">
-                            <h4>Defaultdf545sd {{Auth::user()->name}} </h4>
+                            <h4> Witaj{{Auth::user()->name}} </h4>
 @if(!Auth::user()->is_admin)
     @if(Auth::user()->coach_id == null)
         Profil trenera nie został uzupełniony - przejdź tutaj = <a href="{{route('coaches.create')}}"> o tutaj</a>
@@ -20,9 +20,8 @@
         @endif
     @endif
     @endif
+    @dump($chartData, $inactiveCoaches, $totalAthletes)
 
-{{-- {{--                            --}}
-{{-- @endif --}}
                         </div>
                         <div class="col-6">
                             <ol class="breadcrumb">
@@ -230,106 +229,35 @@
                     <div class="col-xxl-3 col-sm-6 box-col-6">
                         <div class="card height-equal">
                             <div class="card-header card-no-border total-revenue">
-                                <h4>New User  </h4><a href="product.html">View All</a>
+                                <h4>Nowi trenerzy </h4><a href="{{route('coaches.inactives')}}">Zobacz wszystkich</a>
                             </div>
                             <div class="card-body pt-0">
                                 <div class="new-user">
                                     <ul>
+                                    @if($inactiveCoaches->isEmpty())
                                         <li>
-                                            <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/22.png" alt="user"/>
+                                            <div class="space-common d-flex user-name">
                                                 <div class="common-space w-100">
                                                     <div>
-                                                        <h6> <a class="f-w-500 f-14 " href="user-profile.html">Smith John</a></h6><span class="f-light f-w-500 f-12">India</span>
-                                                    </div>
-                                                    <div class="product-sub">
-                                                        <div class="dropdown">
-                                                            <div id="dropdownMenuButtonicon31" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
-                                                                <svg class="invoice-icon">
-                                                                    <use href="../assets/svg/icon-sprite.svg#more-vertical"></use>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon31"><span class="dropdown-item">Last Month </span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
-                                                        </div>
+                                                        <h6 class="f-w-500 f-14">Brak</h6>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/28.png" alt="user"/>
-                                                <div class="common-space w-100">
-                                                    <div>
-                                                        <h6> <a class="f-w-500 f-14 " href="user-profile.html">Robert Fox</a></h6><span class="f-light f-w-500 f-12">Afghanistan</span>
-                                                    </div>
-                                                    <div class="product-sub">
-                                                        <div class="dropdown">
-                                                            <div id="dropdownMenuButtonicon32" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
-                                                                <svg class="invoice-icon">
-                                                                    <use href="../assets/svg/icon-sprite.svg#more-vertical"></use>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon32"><span class="dropdown-item">Last Month </span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
+                                    @else
+                                        @foreach ($inactiveCoaches as $coach)
+                                            <li>
+                                                <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/22.png" alt="user"/>
+                                                    <div class="common-space w-100">
+                                                        <div>
+                                                            <h6> <a class="f-w-500 f-14 " href="user-profile.html">{{$coach->name}} {{$coach->last_name}}</a></h6>
+                                                            <span class="f-light f-w-500 f-12">{{$coach->licence}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/26.png" alt="user"/>
-                                                <div class="common-space w-100">
-                                                    <div>
-                                                        <h6> <a class="f-w-500 f-14 " href="user-profile.html">Darlene Robtson</a></h6><span class="f-light f-w-500 f-12">Georgia</span>
-                                                    </div>
-                                                    <div class="product-sub">
-                                                        <div class="dropdown">
-                                                            <div id="dropdownMenuButtonicon33" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
-                                                                <svg class="invoice-icon">
-                                                                    <use href="../assets/svg/icon-sprite.svg#more-vertical"></use>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon33"><span class="dropdown-item">Last Month </span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/24.png" alt="user"/>
-                                                <div class="common-space w-100">
-                                                    <div>
-                                                        <h6> <a class="f-w-500 f-14 " href="user-profile.html">Floyd Miles</a></h6><span class="f-light f-w-500 f-12">Pakistan</span>
-                                                    </div>
-                                                    <div class="product-sub">
-                                                        <div class="dropdown">
-                                                            <div id="dropdownMenuButtonicon34" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
-                                                                <svg class="invoice-icon">
-                                                                    <use href="../assets/svg/icon-sprite.svg#more-vertical"></use>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon34"><span class="dropdown-item">Last Month </span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/49.png" alt="user"/>
-                                                <div class="common-space w-100">
-                                                    <div>
-                                                        <h6> <a class="f-w-500 f-14 " href="user-profile.html">Jacob Jones</a></h6><span class="f-light f-w-500 f-12">Monaco</span>
-                                                    </div>
-                                                    <div class="product-sub">
-                                                        <div class="dropdown">
-                                                            <div id="dropdownMenuButtonicon35" data-bs-toggle="dropdown" aria-expanded="false" role="menu">
-                                                                <svg class="invoice-icon">
-                                                                    <use href="../assets/svg/icon-sprite.svg#more-vertical"></use>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonicon35"><span class="dropdown-item">Last Month </span><span class="dropdown-item">Last Week</span><span class="dropdown-item">Last Day </span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endforeach
+                                    @endif
                                     </ul>
                                 </div>
                             </div>
@@ -572,6 +500,40 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Treningi w województwach</h4>
+                                <div id="wojewodztwa-chart" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">Szkoły w województwach</h4>
+                                <div id="szkoly-chart" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Podział zawodników według płci</h4>
+                                    <div id="athletes-chart" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">Liczba treningów w miesiącach</div>
+                                <div class="card-body">
+                                    <canvas id="practicesByMonthChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Container-fluid Ends-->
@@ -580,3 +542,334 @@
 
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js nie jest załadowany. Upewnij się, że biblioteka jest prawidłowo dołączona.');
+            return;
+        }
+
+        var chartData = @json($chartData);
+        var totalAthletes = @json($totalAthletes);
+        
+        // Funkcja do tworzenia wykresu
+        function createChart(elementId, data, title, yAxisTitle, tooltipSuffix) {
+            var sortedData = Object.entries(data)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 16);
+
+            var categories = sortedData.map(item => item[0]);
+            var series = sortedData.map(item => item[1]);
+
+            var options = {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    width: '100%'
+                },
+                series: [{
+                    name: yAxisTitle,
+                    data: series
+                }],
+                colors: ['#006666'],
+                xaxis: {
+                    categories: categories,
+                    labels: {
+                        rotate: -45,
+                        rotateAlways: true,
+                        trim: false,
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: yAxisTitle
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        dataLabels: {
+                            position: 'top',
+                        },
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val) {
+                        return val;
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#006666"]
+                    }
+                },
+                title: {
+                    text: title,
+                    align: 'center'
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + " " + tooltipSuffix;
+                        }
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: '100%'
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#" + elementId), options);
+            chart.render();
+
+            window.addEventListener('resize', function() {
+                chart.updateOptions({
+                    chart: {
+                        width: '100%'
+                    }
+                });
+            });
+        }
+
+        // Tworzenie wykresu dla treningów
+        createChart(
+            'wojewodztwa-chart', 
+            chartData.practicesByVoivodeship, 
+            'Treningi w województwach', 
+            'Liczba treningów', 
+            'treningów'
+        );
+
+        // Tworzenie wykresu dla szkół
+        createChart(
+            'szkoly-chart', 
+            chartData.schoolsByVoivodeship, 
+            'Szkoły w województwach', 
+            'Liczba szkół', 
+            'szkół'
+        );
+
+        // Nowy kod dla wykresu podziału zawodników według płci
+        var athletesByGender = chartData.athletesByGender;
+        
+        var maleCount = parseInt(athletesByGender['M'] || 0);
+        var femaleCount = parseInt(athletesByGender['K'] || 0);
+        
+
+        var series = [maleCount, femaleCount].filter(count => count > 0);
+        var labels = ['Mężczyźni', 'Kobiety'].filter((_, index) => series[index] > 0);
+
+        if (series.length <= 1) {
+            var options = {
+                series: series,
+                chart: {
+                    type: 'pie',
+                    height: 400,
+                   
+                },
+                labels: labels,
+                colors: ['#0000FF', '#FF69B4'],
+                title: {
+                    text: 'Podział zawodników według płci (Łącznie: ' + totalAthletes + ')',
+                    align: 'center'
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + " zawodników";
+                        }
+                    }
+                },
+                legend: {
+                    show: true,
+                    position: 'bottom'
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val, opts) {
+                        var label = opts.w.globals.labels[opts.seriesIndex];
+                        var count = opts.w.globals.series[opts.seriesIndex];
+                        var percentage = Math.round(val);
+                        return label + ": " + count + " (" + percentage + "%)";
+                    }
+                }
+            };
+        } else {
+            var options = {
+                series: series,
+                chart: {
+                    type: 'polarArea',
+                    height: 400,
+                   
+                },
+                labels: labels,
+                fill: {
+                    opacity: 0.8
+                },
+                stroke: {
+                    width: 1,
+                    colors: undefined
+                },
+                yaxis: {
+                    show: false
+                },
+                plotOptions: {
+                    polarArea: {
+                        rings: {
+                            strokeWidth: 0
+                        },
+                        spokes: {
+                            strokeWidth: 0
+                        },
+                    }
+                },
+                colors: ['#0000FF', '#FF69B4'],
+                title: {
+                    text: 'Podział zawodników według płci (Łącznie: ' + totalAthletes + ')',
+                    align: 'center'
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return val + " zawodników";
+                        }
+                    }
+                },
+                legend: {
+                    show: true,
+                    position: 'bottom'
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val, opts) {
+                        var label = opts.w.globals.labels[opts.seriesIndex];
+                        var count = opts.w.globals.series[opts.seriesIndex];
+                        var percentage = Math.round(val);
+                        return label + ": " + count + " (" + percentage + "%)";
+                    }
+                }
+            };
+        }
+
+        var athletesChart = new ApexCharts(document.querySelector("#athletes-chart"), options);
+        athletesChart.render();
+
+        window.addEventListener('resize', function() {
+            athletesChart.updateOptions({
+                chart: {
+                    width: '50%'
+                }
+            });
+        });
+
+        // Nowy kod dla wykresu treningów w miesiącach
+        var practicesByMonth = chartData.practicesByMonth;
+        var practicesData = [];
+        
+        for (var i = 1; i <= 12; i++) {
+            practicesData.push(parseInt(practicesByMonth[i] || 0));
+        }
+
+        var practicesByMonthCtx = document.getElementById('practicesByMonthChart');
+        if (practicesByMonthCtx) {
+            var practicesByMonthChart = new Chart(practicesByMonthCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
+                    datasets: [{
+                        label: 'Liczba treningów',
+                        data: practicesData,
+                        borderColor: '#006666',
+                        backgroundColor: 'rgba(0, 102, 102, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        stepped: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        } else {
+            console.error('Element o id "practicesByMonthChart" nie został znaleziony.');
+        }
+
+        // Dla wykresu podziału zawodników według płci
+        var options = {
+            // ... (pozostałe opcje bez zmian)
+            chart: {
+                type: 'polarArea', // lub 'pie', w zależności od warunku
+                height: 300, // Zmniejszamy wysokość, aby lepiej pasowała do karty
+                width: '100%'
+            },
+            // ... (pozostałe opcje bez zmian)
+        };
+
+        var athletesChart = new ApexCharts(document.querySelector("#athletes-chart"), options);
+        athletesChart.render();
+
+        // Dla wykresu treningów w miesiącach
+        var practicesByMonthCtx = document.getElementById('practicesByMonthChart');
+        if (practicesByMonthCtx) {
+            var practicesByMonthChart = new Chart(practicesByMonthCtx, {
+                // ... (pozostałe opcje bez zmian)
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Dodajemy tę opcję
+                    // ... (pozostałe opcje bez zmian)
+                }
+            });
+        } else {
+            console.error('Element o id "practicesByMonthChart" nie został znaleziony.');
+        }
+
+        // Funkcja do dostosowania rozmiaru wykresów przy zmianie rozmiaru okna
+        function resizeCharts() {
+            if (athletesChart) {
+                athletesChart.updateOptions({
+                    chart: {
+                        width: '100%'
+                    }
+                });
+            }
+            if (practicesByMonthChart) {
+                practicesByMonthChart.resize();
+            }
+        }
+
+        // Nasłuchiwanie na zmianę rozmiaru okna
+        window.addEventListener('resize', resizeCharts);
+    });
+</script>
+@endpush
+
+
+
+

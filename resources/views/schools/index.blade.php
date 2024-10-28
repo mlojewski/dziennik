@@ -50,14 +50,26 @@
                                                                 @endforeach
                                                             </td>
                                                         @endif
-                                                        <td>
-                                                            <i class="bg-light-danger font-danger" data-feather="alert-triangle"></i><span class="font-danger"><form method="post" action="{{route('schools.delete', ['id' => $school->id])}}">
-                                @csrf
-
+                                                        <td class="text-center" style="min-width: 300px;">
+                                                            <div class="d-flex justify-content-center" role="group" aria-label="Akcje dla szkoły">
+                                                                <a href="{{ route('schools.edit', ['id' => $school->id]) }}" class="btn btn-sm btn-outline-primary mr-2" title="Edytuj">
+                                                                    <i data-feather="edit-2" class="feather-icon"></i>
+                                                                    <span>Edytuj</span>
+                                                                </a>
+                                                                <a href="{{ route('getSchoolStats', ['schoolId' => $school->id]) }}" class="btn btn-sm btn-outline-info mr-2" title="Raport">
+                                                                    <i data-feather="file-text" class="feather-icon"></i>
+                                                                    <span>Raport</span>
+                                                                </a>
+                                                                <form method="post" action="{{ route('schools.delete', ['id' => $school->id]) }}" class="d-inline">
+                                                                    @csrf
                                                                     @method('delete')
-                                    <button type="submit" class="bg-light-success font-danger"> Usuń</button>
-                                                                </form></span></td>
-                                                        <td><a href="{{route('schools.edit', ['id' => $school->id])}}" > <i class="bg-light-success font-success " data-feather="alert-triangle"></i><span class="font-success">Edytuj</span></a></td>
+                                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Usuń" onclick="return confirm('Czy na pewno chcesz usunąć tę szkołę?')">
+                                                                        <i data-feather="trash-2" class="feather-icon"></i>
+                                                                        <span>Usuń</span>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

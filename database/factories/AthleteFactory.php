@@ -20,10 +20,10 @@ class AthleteFactory extends Factory
             'name' => fake()->name(),
             'last_name' => fake()->name(),
             'birth_date' => fake()->date(),
-            'gender' => 'M',
+            'gender' => fake()->randomElement(['M', 'K']),
             'guardian' => fake()->text(40),
             'guardian_number' => fake()->text(20),
-            'school_id' => 1
+            'school_id' => rand(1,10)
         ];
     }
 }

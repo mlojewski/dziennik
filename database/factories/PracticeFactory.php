@@ -23,7 +23,8 @@ class PracticeFactory extends Factory
             'drills' => fake()->text(50),
             'date' => fake()->dateTime(),
             'stage_id' => 1,
-            'school_id' => 1
+            'school_id' => rand(1,10),
+            'coach_id' => rand(1,15)
         ];
     }
 }
