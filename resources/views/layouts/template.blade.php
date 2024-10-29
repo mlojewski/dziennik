@@ -45,6 +45,7 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 @endpush
 </head>
 <body>
@@ -242,7 +243,7 @@
                             </svg><span>Raporty</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{route('schools.index')}}">Raporty per szkoła</a></li>
-                            <li><a href="edit-profile.html">Raporty ogólne</a></li>
+                            <li><a href="{{route('totalStats')}}">Raporty ogólne</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"> <i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title" href="#">

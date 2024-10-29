@@ -13,9 +13,23 @@ use Illuminate\View\View;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Services\GlobalStatisticsService;
 
 class DashboardController extends Controller
 {
+    private $globalStatisticsService;
+
+    public function __construct(GlobalStatisticsService $globalStatisticsService)
+    {
+        $this->globalStatisticsService = $globalStatisticsService;
+    }
+
+    public function totalStats()
+    {
+        $basicCounts = $this->globalStatisticsService->getAllStatistics();
+        return view('dashboard.total-stats', compact('basicCounts'));
+    }
+
     public function index()
     {
         $totalAthletes = Athlete::count();

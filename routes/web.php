@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('schools/{schoolId}/athletes', [PracticeController::class, 'getAthletes'])->name('practices.getAthletes');
     Route::get('/dashboard/school-stats/{schoolId}', [DashboardController::class, 'getSchoolStats'])->name('getSchoolStats');
     Route::get('/dashboard/download-practices/{schoolId}', [DashboardController::class, 'exportPractices'])->name('school.practices.export');
+    Route::get('/dashboard/total-stats', [DashboardController::class, 'totalStats'])->name('totalStats');
     Route::middleware('is_admin')->group(function () {
         Route::get('inactives', [CoachController::class, 'inactives'])->name('coaches.inactives');
         Route::get('stages', [StageController::class, 'index'])->name('stages.index');
