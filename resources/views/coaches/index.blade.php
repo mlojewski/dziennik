@@ -10,7 +10,7 @@
                     <div class="col-6">
                         <h4>Trenerzy</h4>
                     </div>
-
+                    <a href="{{ route('export.coaches.statistics') }}" class="btn btn-primary" style="padding: 0.5rem 1rem; display: inline-block; width: auto;">Eksportuj zestawienie trenerów</a>
                 </div>
             </div>
         </div>

@@ -43,12 +43,12 @@
                         </select>
                     </div>
                     <!-- Nowe pole dla PESEL -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label" for="pesel">PESEL</label>
                         <input class="form-control" name="pesel" id="pesel" type="text" pattern="[0-9]{11}" maxlength="11" value="{{ $coach->pesel }}" placeholder="Wpisz 11-cyfrowy PESEL">
                     </div>
                     <!-- Nowe pole dla województwa -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label" for="voivodeship_id">Województwo</label>
                         <select class="form-control" name="voivodeship_id" id="voivodeship_id">
                             <option value="">Wybierz województwo</option>
@@ -58,6 +58,10 @@
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="licence">Numer licencji</label>
+                        <input class="form-control" name="licence" id="licence" type="text" placeholder="Wpisz numer licencji">
                     </div>
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Zapisz zmiany</button>

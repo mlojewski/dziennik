@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/download-practices/{schoolId}', [DashboardController::class, 'exportPractices'])->name('school.practices.export');
     Route::get('/dashboard/total-stats', [DashboardController::class, 'totalStats'])->name('totalStats');
     Route::middleware('is_admin')->group(function () {
+        Route::get('/export-coaches-statistics', [CoachController::class, 'exportCoachesStatistics'])->name('export.coaches.statistics');
         Route::get('inactives', [CoachController::class, 'inactives'])->name('coaches.inactives');
         Route::get('stages', [StageController::class, 'index'])->name('stages.index');
         Route::get('stages/create', [StageController::class, 'create'])->name('stages.create');

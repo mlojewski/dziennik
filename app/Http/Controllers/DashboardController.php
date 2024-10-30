@@ -14,6 +14,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Services\GlobalStatisticsService;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Stage;
 
 class DashboardController extends Controller
 {
@@ -31,6 +33,17 @@ class DashboardController extends Controller
     }
 
     public function index()
+    {
+        $user = Auth::user();
+
+    if ($user->is_admin) {
+        return $this->adminIndex();
+    } else {
+        return $this->coachIndex();
+        }
+    }
+
+    public function adminIndex()
     {
         $totalAthletes = Athlete::count();
         $athletesByGender = Athlete::groupBy('gender')->selectRaw('gender, count(*) as count')->get();
@@ -162,6 +175,57 @@ class DashboardController extends Controller
         return $practices;
     }
 
+    public function coachIndex()
+    {
+        $user = Auth::user();
+
+        // Pobierz coacha przypisanego do użytkownika
+        $coach = $user->coach;
+
+        // Pobierz wszystkie szkoły przypisane do coacha
+        $schools = $coach->schools;
+
+        // Sprawdź aktualną datę
+        $currentDate = now();
+
+        // Pobierz aktualny stage
+        $currentStage = Stage::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        if (!$currentStage) {
+            return response()->json(['message' => 'Brak aktualnych edycji.'], 404);
+        }
+
+        // Pobierz limit z aktualnego stage
+        $limit = $currentStage->limit;
+
+        // Przygotuj tablicę do przechowywania wyników
+        $results = [];
+
+        // Iteruj przez szkoły i zlicz treningi oraz uczniów dla każdej z nich
+        foreach ($schools as $school) {
+            $practiceCount = Practice::where('coach_id', $coach->id)
+                ->where('stage_id', $currentStage->id)
+                ->where('school_id', $school->id)
+                ->count();
+
+            // Pobierz liczbę uczniów dla danej szkoły
+            $athletesCount = Athlete::where('school_id', $school->id)->count();
+
+            // Dodajemy dane do tablicy wyników
+            $results[] = [
+                'szkoła' => $school->name,
+                'liczba_treningów' => $practiceCount,
+                'limit' => $limit,
+                'liczba_uczniow' => $athletesCount, // Dodana nowa informacja
+            ];
+        }
+
+        // Zwracamy widok index z przekazanymi wynikami
+        return view('index', compact('results'));
+    }
+
     public function getSchoolStats($schoolId): View
     {
         $school = School::findOrFail($schoolId);
@@ -218,9 +282,12 @@ class DashboardController extends Controller
         $practices = Practice::where('school_id', $schoolId)
             ->with(['coach' => function($query) {
                 $query->select('id', 'name', 'last_name');
-            }])
+            }, 'athletes'])
             ->orderBy('date')
             ->get();
+
+        // Oblicz całkowitą liczbę zawodników przypisanych do szkoły
+        $totalAthletes = $school->athletes()->count();
 
         // Utwórz nowy arkusz
         $spreadsheet = new Spreadsheet();
@@ -231,19 +298,24 @@ class DashboardController extends Controller
         $sheet->setCellValue('B1', 'Trener');
         $sheet->setCellValue('C1', 'Rozgrzewka');
         $sheet->setCellValue('D1', 'Ćwiczenia');
+        $sheet->setCellValue('E1', 'Frekwencja');
 
         // Wypełnij danymi
         $row = 2;
         foreach ($practices as $practice) {
+            $presentCount = $practice->athletes()->count();
+            $attendance = $totalAthletes > 0 ? "$presentCount z $totalAthletes" : "0 z 0";
+
             $sheet->setCellValue('A' . $row, $practice->date);
             $sheet->setCellValue('B' . $row, $practice->coach->name . ' ' . $practice->coach->last_name);
             $sheet->setCellValue('C' . $row, $practice->warm_up);
             $sheet->setCellValue('D' . $row, $practice->drills);
+            $sheet->setCellValue('E' . $row, $attendance);
             $row++;
         }
 
         // Dostosuj szerokość kolumn
-        foreach(range('A','D') as $column) {
+        foreach(range('A','E') as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
 
@@ -259,7 +331,7 @@ class DashboardController extends Controller
                 ],
             ],
         ];
-        $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+        $sheet->getStyle('A1:E1')->applyFromArray($headerStyle);
 
         // Przygotuj response
         $fileName = 'treningi_' . str_replace(' ', '_', $school->name) . '_' . date('Y-m-d') . '.xlsx';

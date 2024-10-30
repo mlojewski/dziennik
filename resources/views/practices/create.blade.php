@@ -11,60 +11,69 @@
             </div>
         </div>
         <div class="card-body">
-        <div class="card-wrapper border rounded-3">
-            <form id="practice_creation" action="{{route('practices.store')}}" method="post" class="row g-3">
-                {{csrf_field()}}
-                <div class="col-md-12">
-                    <label class="form-label" for="warm_up">Rozgrzewka</label>
-                    <input class="form-control" name="warm_up" id="warm_up" required="required" type="textarea" placeholder="Wpisz informacje o rozgrzewce (min. 300 znaków)">
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="drills">Trening właściwy</label>
-                    <input class="form-control" name="drills" id="drills" required="required" type="textarea" placeholder="Wpisz informacje o treningu (min. 300 znaków)">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="date">Data treningu</label>
-                    <input class="form-control" name="date" id="date" type="text" required="required" placeholder="Wybierz datę treningu" readonly>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="stage">Etap (kliknij by rozwinąć listę)</label>
-                    <select class="form-control" name="stage_id" id="stage_id" required="required">
-                        <option value="">Wybierz etap</option>
-                        @foreach($stages as $stage)
-                            @if($stage->edition)
-                                <option value="{{$stage->id}}" 
-                                        data-start="{{$stage->start_date}}" 
-                                        data-end="{{$stage->end_date}}" 
-                                        data-excluded="{{json_encode($stage->edition->excluded_dates ?? [])}}">
-                                    {{$stage->name}} ({{$stage->start_date}} - {{$stage->end_date}})
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                <!-- Dodana lista rozwijana szkół -->
-                <div class="col-md-12">
-                    <label class="form-label" for="school_id">Szkoła</label>
-                    <select class="form-control" name="school_id" id="school_id" required="required">
-                        <option value="">Wybierz szkołę</option>
-                        @foreach($schools as $school)
-                            <option value="{{ $school->id }}">{{ $school->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <!-- Dodana sekcja z listą zawodników -->
-                <div class="col-md-12 mt-3" id="athletes-section" style="display: none;">
-                    <label class="form-label">Wybierz zawodników</label>
-                    <div id="athletes-list">
-                        <!-- Tu będą dynamicznie dodawane checkboxy z zawodnikami -->
+            <div class="card-wrapper border rounded-3">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                </div>
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Zapisz</button>
-                </div>
-            </form>
+                @endif
+                <form id="practice_creation" action="{{ route('practices.store') }}" method="post" class="row g-3">
+                    {{ csrf_field() }}
+                    <div class="col-md-12">
+                        <label class="form-label" for="warm_up">Rozgrzewka</label>
+                        <input class="form-control" name="warm_up" id="warm_up" required="required" type="textarea" placeholder="Wpisz informacje o rozgrzewce (min. 300 znaków)">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="drills">Trening właściwy</label>
+                        <input class="form-control" name="drills" id="drills" required="required" type="textarea" placeholder="Wpisz informacje o treningu (min. 300 znaków)">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="date">Data treningu</label>
+                        <input class="form-control" name="date" id="date" type="text" required="required" placeholder="Wybierz datę treningu" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="stage">Etap (kliknij by rozwinąć listę)</label>
+                        <select class="form-control" name="stage_id" id="stage_id" required="required">
+                            <option value="">Wybierz etap</option>
+                            @foreach($stages as $stage)
+                                @if($stage->edition)
+                                    <option value="{{$stage->id}}" 
+                                            data-start="{{$stage->start_date}}" 
+                                            data-end="{{$stage->end_date}}" 
+                                            data-excluded="{{json_encode($stage->edition->excluded_dates ?? [])}}">
+                                        {{$stage->name}} ({{$stage->start_date}} - {{$stage->end_date}})
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Dodana lista rozwijana szkół -->
+                    <div class="col-md-12">
+                        <label class="form-label" for="school_id">Szkoła</label>
+                        <select class="form-control" name="school_id" id="school_id" required="required">
+                            <option value="">Wybierz szkołę</option>
+                            @foreach($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Dodana sekcja z listą zawodników -->
+                    <div class="col-md-12 mt-3" id="athletes-section" style="display: none;">
+                        <label class="form-label">Wybierz zawodników</label>
+                        <div id="athletes-list">
+                            <!-- Tu będą dynamicznie dodawane checkboxy z zawodnikami -->
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Zapisz</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 @endsection
 
