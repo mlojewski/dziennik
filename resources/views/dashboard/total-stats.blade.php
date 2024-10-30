@@ -10,7 +10,6 @@
     <div class="container-fluid">
         <div class="row size-column">
             
-    @dump($basicCounts)
             <div class="row mt-4">
                 <div class="col-md-6">
                     <div class="card">

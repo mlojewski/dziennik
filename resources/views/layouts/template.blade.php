@@ -82,7 +82,7 @@
             <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
                 <div> <a class="toggle-sidebar" href="#"> <i class="iconly-Category icli"> </i></a>
                     <div class="d-flex align-items-center gap-2 ">
-                        <h4 class="f-w-600">Welcome {{Auth::user()->name}}</h4><img class="mt-0" src="{{asset('../assets/images/hand.gif')}}" alt="hand-gif">
+                        <h4 class="f-w-600">Dzień dobry! {{Auth::user()->name}}</h4><img class="mt-0" src="{{asset('../assets/images/hand.gif')}}" alt="hand-gif">
                     </div>
                 </div>
                 <div class="welcome-content d-xl-block d-none"><span class="text-truncate col-12">Witaj w panelu programu Mały Atleta </span></div>
@@ -131,11 +131,11 @@
     <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper" data-layout="stroke-svg">
-            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('../assets/images/logo/logo.png')}}" alt=""></a>
+            <div class="logo-wrapper"><a href="{{route('dashboard')}}"><img class="img-fluid" src="{{asset('../assets/images/logo/logo.png')}}" alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"> </i></div>
                 <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
             </div>
-            <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid" src="{{asset('../assets/images/logo/logo-icon.png')}}" alt=""></a></div>
+            <div class="logo-icon-wrapper"><a href="{{route('dashboard')}}"><img class="img-fluid" src="{{asset('../assets/images/logo/logo-icon.png')}}" alt=""></a></div>
             <nav class="sidebar-main">
                 <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                 <div id="sidebar-menu">
@@ -153,7 +153,7 @@
                             </div>
                         </li>
 
-                        <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title link-nav" href="#">
+                        <li class="sidebar-list"><i class="fa fa-thumb-tack"> </i><a class="sidebar-link sidebar-title link-nav" href="{{route('dashboard')}}">
                                 <svg class="stroke-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-home')}}"></use>
                                 </svg>

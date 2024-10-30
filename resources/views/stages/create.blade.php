@@ -16,11 +16,11 @@
         <div class="card-wrapper border rounded-3">
             <form id="stage_creation" action="{{route('stages.store')}}" method="post" class="row g-3">
                 {{csrf_field()}}
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label class="form-label" for="name">Nazwa etapu</label>
                     <input class="form-control" name="name" id="name" required="required" type="text" placeholder="Wpisz nazwę etapu">
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <label class="form-label" for="edition_id">Edycja</label>
                     <select class="form-control" name="edition_id" id="edition_id" required="required">
                         <option value="">Wybierz edycję</option>
@@ -28,6 +28,10 @@
                             <option value="{{ $edition->id }}">{{ $edition->name }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="limit">Limit treningów w edycji</label>
+                    <input class="form-control" name="limit" id="limit" type="number" step="1" placeholder="Określ limit treningów w edycji">
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="start_date">Data początkowa</label>

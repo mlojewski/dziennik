@@ -27,6 +27,7 @@ class StageController extends Controller
             'edition_id' => 'required|exists:editions,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
+            'limit' => 'nullable|integer|min:0',
         ]);
 
         $stage = new Stage();
@@ -34,6 +35,7 @@ class StageController extends Controller
         $stage->edition_id = $validatedData['edition_id'];
         $stage->start_date = $validatedData['start_date'];
         $stage->end_date = $validatedData['end_date'];
+        $stage->limit = $validatedData['limit'];
         $stage->save();
 
         return redirect()->route('stages.index')->with('success', 'Etap został utworzony pomyślnie.');
@@ -51,8 +53,9 @@ class StageController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'edition_id' => 'required|exists:editions,id',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date',    
             'end_date' => 'required|date|after_or_equal:start_date',
+            'limit' => 'nullable|integer|min:0',
         ]);
 
         $stage = Stage::findOrFail($id);
@@ -60,6 +63,7 @@ class StageController extends Controller
         $stage->edition_id = $validatedData['edition_id'];
         $stage->start_date = $validatedData['start_date'];
         $stage->end_date = $validatedData['end_date'];
+        $stage->limit = $validatedData['limit'];
         $stage->save();
 
         return redirect()->route('stages.index')->with('success', 'Etap został zaktualizowany pomyślnie.');

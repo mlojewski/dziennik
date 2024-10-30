@@ -17,11 +17,11 @@
                 <form id="stage_edit" action="{{ route('stages.update', $stage->id) }}" method="post" class="row g-3">
                     @csrf
                     @method('PUT')
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label class="form-label" for="name">Nazwa etapu</label>
-                        <input class="form-control" name="name" id="name" required="required" type="text" value="{{ old('name', $stage->name) }}" placeholder="Wpisz nazwę etapu">
+                        <input class="form-control" name="name" id="name" required="required" type="text" value="{{ old('name', $stage->name) }}" placeholder="{{ old('name', $stage->name) }}">
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label class="form-label" for="edition_id">Edycja</label>
                         <select class="form-control" name="edition_id" id="edition_id" required="required">
                             <option value="">Wybierz edycję</option>
@@ -31,6 +31,10 @@
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="limit">Limit treningów w edycji</label>
+                        <input class="form-control" name="limit" id="limit" type="number" step="1" value="{{ old('limit', $stage->limit) }}" placeholder="{{ old('limit', $stage->limit) }} ">
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="start_date">Data początkowa</label>

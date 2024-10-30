@@ -52,14 +52,27 @@ class PracticeController extends Controller
 
     public function store(Request $request)
     {
-        $practice = new Practice();
+        $user = Auth::user();
+        $practiceCount = Practice::where('school_id', $request->school_id)
+            ->where('coach_id', $user->coach_id)
+            ->count();
 
+        // Pobierz limit z wybranej edycji
+        $stage = Stage::findOrFail($request->stage_id);
+        $limit = $stage->limit;
+
+        // Sprawdź, czy liczba treningów przekracza limit
+        if ($practiceCount >= $limit) {
+            return redirect()->back()->withErrors(['limit' => 'Przekroczono limit treningów dla tej szkoły na dany etap.']);
+        }
+
+        $practice = new Practice();
         $practice->warm_up = $request->warm_up;
         $practice->drills = $request->drills;
         $practice->date = $request->date;
         $practice->stage_id = $request->stage_id;
         $practice->school_id = $request->school_id;
-        $user = Auth::user();
+
         if ($user && $user->coach_id) {
             $practice->coach_id = $user->coach_id;
         }

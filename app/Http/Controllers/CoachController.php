@@ -7,9 +7,17 @@ use App\Models\User;
 use App\Models\Voivodeship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CoachStatisticsService;
 
 class CoachController extends Controller
 {
+    private $coachStatisticsService;
+
+    public function __construct(CoachStatisticsService $coachStatisticsService)
+    {
+        $this->coachStatisticsService = $coachStatisticsService;
+    }
+
     public function index()
     {
         $coaches = Coach::with('schools')->where('is_active', 1)->get();
@@ -22,6 +30,11 @@ class CoachController extends Controller
         $coaches = Coach::with('schools')->where('is_active', 0)->get();
 
         return view('coaches.inactives', ['coaches' => $coaches]);
+    }
+
+    public function exportCoachesStatistics()
+    {
+        return $this->coachStatisticsService->exportCoachesStatistics();
     }
 
     public function create()
