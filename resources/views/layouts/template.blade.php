@@ -131,10 +131,10 @@
     <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
         <div class="sidebar-wrapper" data-layout="stroke-svg">
-            <div class="logo-wrapper"><a href="{{route('dashboard')}}"><img class="img-fluid" src="{{asset('../assets/images/logo/logo.png')}}" alt=""></a>
+            {{-- <div class="logo-wrapper"><a href="{{route('dashboard')}}"><img class="img-fluid" src="{{asset('../assets/images/logo/logo.png')}}" alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"> </i></div>
                 <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
-            </div>
+            </div> --}}
             <div class="logo-icon-wrapper"><a href="{{route('dashboard')}}"><img class="img-fluid" src="{{asset('../assets/images/logo/logo-icon.png')}}" alt=""></a></div>
             <nav class="sidebar-main">
                 <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
@@ -143,7 +143,7 @@
                         <li class="back-btn"><a href="index.html"><img class="img-fluid" src="{{asset('../assets/images/logo/logo-icon.png')}}" alt=""></a>
                             <div class="mobile-back text-end"> <span>Back </span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                         </li>
-{           
+
                         @if(auth()->user()->is_admin == 0)
 
 
@@ -199,13 +199,13 @@
                                 <li><a href="{{route('practices.create')}}">Dodaj trening</a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
+                        {{-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
                                 <svg class="stroke-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-chat')}}"></use>
                                 </svg>
                                 <svg class="fill-icon">
                                     <use href="{{asset('../assets/svg/icon-sprite.svg#fill-chat')}}"></use>
-                                </svg><span>Wiadomości</span></a></li>
+                                </svg><span>Wiadomości</span></a></li> --}}
                                 @endif
                         @endif
                         @if(auth()->user()->is_admin == 1)
@@ -258,14 +258,14 @@
                         <li><a href="{{route('stages.index')}}">Etapy</a></li>
                     </ul>
                 </li>
-                    <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
+                    {{-- <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
                             <svg class="stroke-icon">
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-chat')}}"></use>
                             </svg>
                             <svg class="fill-icon">
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#fill-chat')}}"></use>
                             </svg><span>Wiadomości</span></a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-list"><i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title link-nav" href="{{route('hours.index')}}">
                             <svg class="stroke-icon">
                                 <use href="{{asset('../assets/svg/icon-sprite.svg#stroke-faq')}}"></use>
