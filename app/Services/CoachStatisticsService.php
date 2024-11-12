@@ -28,6 +28,7 @@ class CoachStatisticsService
         $sheet->setCellValue('G1', 'Kod');
         $sheet->setCellValue('H1', 'Miejscowość');
         $sheet->setCellValue('I1', 'Województwo');
+        $sheet->setCellValue('J1', 'Terminy treningów');
 
         // Wypełnij danymi
         $row = 2;
@@ -42,12 +43,13 @@ class CoachStatisticsService
                 $sheet->setCellValue('G' . $row, $school->postal_code);
                 $sheet->setCellValue('H' . $row, $school->city);
                 $sheet->setCellValue('I' . $row, $coach->voivodeship->name);
+                $sheet->setCellValue('J' . $row, $school->schedule);
                 $row++;
             }
         }
 
         // Dostosuj szerokość kolumn
-        foreach (range('A', 'I') as $column) {
+        foreach (range('A', 'J') as $column) {
             $sheet->getColumnDimension($column)->setAutoSize(true);
         }
 

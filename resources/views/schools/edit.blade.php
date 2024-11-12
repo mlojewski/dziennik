@@ -26,14 +26,18 @@
                         <label class="form-label" for="city">Miasto</label>
                         <input value="{{$school->city}}" class="form-control" name="city" id="city" required="required" type="text" placeholder="Wpisz nazwę miejscowości">
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label class="form-label" for="address">Adres</label>
                         <input value="{{$school->address}}" class="form-control" name="address" id="address" required="required" type="text" placeholder="Wpisz adres szkoły">
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label class="form-label" for="postal_code">kod pocztowy</label>
                         <input value="{{$school->postal_code}}" class="form-control" name="postal_code" id="postal_code" required="required" type="text" placeholder="Wpisz kod pocztowy">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="schedule">Terminy treningów (wpisz dni tygodnia i godziny)</label>
+                        <input value="{{$school->schedule}}" class="form-control" name="schedule" id="schedule" required="required" type="text" placeholder="Wpisz terminy treningów">
                     </div>
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Zapisz</button>
