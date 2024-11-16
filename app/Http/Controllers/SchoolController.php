@@ -29,6 +29,7 @@ class SchoolController extends Controller
         $school->city = $request->city;
         $school->postal_code = $request->postal_code;
         $school->address = $request->address;
+        $school->schedule = $request->schedule;
 
         $school->save();
 
@@ -65,6 +66,7 @@ class SchoolController extends Controller
         $school->city = $request->city;
         $school->postal_code = $request->postal_code;
         $school->address = $request->address;
+        $school->schedule = $request->schedule;
 
         $school->save();
         return redirect()->route('schools.index');
