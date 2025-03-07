@@ -54,7 +54,7 @@ class User extends Authenticatable
    {
        if (!auth()->user()->is_admin) {
 
-          return 'athletes.index';
+          return '/';
        }
 
        return 'coaches.index';

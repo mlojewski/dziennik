@@ -57,7 +57,7 @@
                             <div class="col-md-12 col-sm-6">
                                 <div class="card height-equal">
                                     <div class="card-header card-no-border total-revenue">
-                                        <h4>Nowi trenerzy </h4><a href="{{route('coaches.inactives')}}">Zobacz wszystkich</a>
+                                        <h4>Nowi trenerzy </h4><a href="{{route('coaches.inactives')}}">Przejdź do akceptacji</a>
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="new-user">
@@ -78,7 +78,7 @@
                                                         <div class="space-common d-flex user-name"><img class="img-40 rounded-circle img-fluid me-2" src="../assets/images/user/22.png" alt="user"/>
                                                             <div class="common-space w-100">
                                                                 <div>
-                                                                    <h6> <a class="f-w-500 f-14 " href="user-profile.html">{{$coach->name}} {{$coach->last_name}}</a></h6>
+                                                                    <h6> {{$coach->name}} {{$coach->last_name}}</h6>
                                                                     <span class="f-light f-w-500 f-12">{{$coach->licence}}</span>
                                                                 </div>
                                                             </div>

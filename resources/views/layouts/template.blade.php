@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{asset('../assets/images/favicon.png" type="image/x-icon')}}">
     <link rel="shortcut icon" href="{{asset('../assets/images/favicon.png')}}" type="image/x-icon">
-    <title>Mały Atleta</title>
+    <title>PZZ</title>
     <!-- Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -85,7 +85,7 @@
                         <h4 class="f-w-600">Dzień dobry! {{Auth::user()->name}}</h4><img class="mt-0" src="{{asset('../assets/images/hand.gif')}}" alt="hand-gif">
                     </div>
                 </div>
-                <div class="welcome-content d-xl-block d-none"><span class="text-truncate col-12">Witaj w panelu programu Mały Atleta </span></div>
+                <div class="welcome-content d-xl-block d-none"><span class="text-truncate col-12">Witaj w panelu programu PZZ </span></div>
             </div>
             <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
                 <ul class="nav-menus">

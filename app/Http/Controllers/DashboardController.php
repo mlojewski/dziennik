@@ -183,7 +183,13 @@ class DashboardController extends Controller
         $coach = $user->coach;
 
         // Pobierz wszystkie szkoły przypisane do coacha
-        $schools = $coach->schools;
+        
+        if ($coach== null) {
+            $schools = [];
+        }
+        else {
+            $schools = $coach->schools;
+        }
 
         // Sprawdź aktualną datę
         $currentDate = now();
